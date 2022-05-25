@@ -2,7 +2,7 @@
 
 > This is a little demo build by fuse to create a chat room
 
-<center><img src="./pic/nerv.svg" alt="nerv_icon" style="zoom: 10%;" /></center>
+<center><img src="./pic/nerv.svg" alt="nerv_icon" style="zoom: 3%;" /></center>
 
 ## 搭建方法
 
