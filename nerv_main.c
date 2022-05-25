@@ -185,7 +185,7 @@ int _touchFile_(const char* path){
         struct nodeInfo* chatroomNode=getNodeInfo(chatRoomFile);
         strcat(chatroomNode->ctx,"welcome ");
         strcat(chatroomNode->ctx,cName);
-        strcat(chatroomNode->ctx," to the chat room!\n");
+        strcat(chatroomNode->ctx," to the chat room!\n\n");
     }
     return 0;
 }
@@ -236,8 +236,16 @@ int nerv_unlink (const char *path){
         return -EISDIR;
     else if(strcmp(path,chatRoomFile)==0)
         return -EPERM;
-    else
+    else{
+        if(isChater(path)==1){
+            const char* cName=path+strlen(regFile)+1;
+            struct nodeInfo* chatroomNode=getNodeInfo(chatRoomFile);
+            strcat(chatroomNode->ctx,"goodbye, ");
+            strcat(chatroomNode->ctx,cName);
+            strcat(chatroomNode->ctx," has left the chat room!\n\n");
+        }
         return rmNode(path);
+    }
 }
 
 /** Remove a directory */
@@ -379,7 +387,7 @@ int nerv_write (const char *path, const char *buf, size_t size, off_t offset, st
         strcat(node->ctx,tmp);
         strcat(node->ctx,":\n");
         strcat(node->ctx,buf);
-        strcat(node->ctx,"\n\n");
+        strcat(node->ctx,"\n");
         node->chat_times=node->chat_times+1;
     }else if(strcmp(path,chatRoomFile)==0){
         return -EPERM;
